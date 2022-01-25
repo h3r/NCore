@@ -1,3 +1,22 @@
+#[submodule "NCore/vendor/nlohmann"]
+#	path = NCore/vendor/nlohmann
+#	url = https://github.com/nlohmann/json.git
+#[submodule "NCore/vendor/imgui"]
+#	path = NCore/vendor/imgui
+#	url = https://github.com/ocornut/imgui.git
+#[submodule "NCore/vendor/glfw"]
+#	path = NCore/vendor/glfw
+#	url = https://github.com/glfw/glfw.git
+#[submodule "NCore/vendor/spdlog"]
+#	path = NCore/vendor/spdlog
+#	url = https://github.com/gabime/spdlog
+#[submodule "NCore/vendor/entt"]
+#	path = NCore/vendor/entt
+#	url = https://github.com/skypjack/entt.git
+#[submodule "NCore/vendor/glm"]
+#	path = NCore/vendor/glm
+#	url = https://github.com/g-truc/glm.git
+#
 [submodule "NCore/vendor/nlohmann"]
 	path = NCore/vendor/nlohmann
 	url = https://github.com/nlohmann/json.git
