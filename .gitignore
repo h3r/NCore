@@ -1,0 +1,13 @@
+﻿.vs
+.vscode
+**/bin
+**/bin-int
+**/build
+**.vcxproj
+**.filters
+**.user
+**.sln
+__pycache__
+.github
+node_modules
+*.log
