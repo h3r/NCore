@@ -19,7 +19,7 @@ namespace NC {
     m_window->SetEventCallback(BIND(OnEvent));
 
     auto* imgui_layer = LayerRegistry.Produce("imgui");
-    PushLayer(imgui_layer);
+    PushOverlay(imgui_layer);
   }
 
   CApplication::~CApplication() {

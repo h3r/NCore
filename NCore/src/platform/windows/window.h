@@ -1,11 +1,12 @@
 #pragma once
 
 #include "core/window.h"
+#include "render/context.h"
 
 struct GLFWwindow;
-
+ 
 namespace NC {
-
+	class GraphicsContext;
   class CWinWindow : public CWindow {
 
   public:
@@ -29,6 +30,7 @@ namespace NC {
   
   private:
     GLFWwindow* m_window;
+		GraphicsContext* m_context;
 
     struct TWindowData {
       std::string title;

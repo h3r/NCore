@@ -3,15 +3,14 @@
 
 #include "core/log.h"
 #include "core/core.h"
-
-#include <glad/glad.h>
-#include <GLFW/glfw3.h>
 #include "events/application.h"
 #include "events/keyboard.h"
 #include "events/mouse.h"
+#include "platform/opengl/context.h";
 
 #include "backends/imgui_impl_glfw.cpp"
 #include "backends/imgui_impl_opengl3.cpp"
+
 
 namespace NC {
 
@@ -37,6 +36,7 @@ namespace NC {
     m_data.height = _props.height;
 
     log_info("Creating window {0} ({1}, {2})", m_data.title, m_data.width, m_data.height);
+
     if (!s_glfw_initialized) {
       int ok = glfwInit();
       nc_assert(ok, "Could not initialize GLFW");
@@ -45,11 +45,8 @@ namespace NC {
 
     //Create a GLFW Window
     m_window = glfwCreateWindow(m_data.width, m_data.height, m_data.title.c_str(), nullptr, nullptr);
-    glfwMakeContextCurrent(m_window);
-
-    //Create the OpenGL context
-    int status = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
-    nc_assert(status, std::string("Failed to create OpenGL context with Glad!"));
+		m_context = new OpenGLContext(m_window);
+		m_context->Init();
 
     glfwSetWindowUserPointer(m_window, &m_data);
     SetVSync(true);
@@ -132,7 +129,7 @@ namespace NC {
 
   void CWinWindow::OnUpdate() {
     glfwPollEvents();
-    glfwSwapBuffers(m_window);
+		m_context->SwapBuffers();
   }
 
   void CWinWindow::SetVSync(bool _enabled) {
