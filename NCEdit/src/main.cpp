@@ -7,8 +7,8 @@ class Game : public NC::CApplication
 public:
   
   Game() {
-    Layer* mylayer = LayerRegistry.Produce("EditorLayer");
-    LayerStack.PushLayer(mylayer);
+		Layer* mylayer = LayerRegistry.Produce("EditorLayer");
+    PushLayer(mylayer);
   }
 
   ~Game() {
@@ -20,15 +20,3 @@ NC::CApplication* NC::CreateApplication() {
   return new Game();
 }
 
-int main(int argc, char** argv) {
-
-  NC::CLog::Init();
-  vec3 a(1.f, 2.f, 3.f);
-
-  auto app = NC::CreateApplication();
-  app->Run();
-  delete app;
-
-  return 0;
-
-}

@@ -11,11 +11,11 @@ public:
     log_info("Constructor");
   }
   void OnAttach() {
-    EventManager::bind<ImGuiBegin>("ImGui", "EditorLayer", [&](const ImGuiBegin& _msg) { Inspect(); });
+    //EventManager::bind<ImGuiBegin>("ImGui", "EditorLayer", [&](const ImGuiBegin& _msg) { Inspect(); });
   }
   
   void OnDetach() {
-		EventManager::unbind<ImGuiBegin>("ImGui", "EditorLayer");
+		//EventManager::unbind<ImGuiBegin>("ImGui", "EditorLayer");
   }
 
   void OnUpdate() {
@@ -26,7 +26,8 @@ public:
     log_trace("Event: {}", event);
   }
 
-  void Inspect() {
+  void OnInspect() {
+		log_trace("Event: {}");
     //ImGui::Text(GetName().c_str());
   }
 };
