@@ -1,24 +1,11 @@
-[Premake](https://github.com/premake/premake-core) extension for supporting [cmake](http://www.cmake.org/) cmake
+[CMake](https://cmake.org/) generator for [Premake](https://github.com/premake/premake-core).
 
-### Features ###
+# Usage
+1. Put these files in a `cmake` subdirectory in one of [Premake's search paths](https://github.com/premake/premake-core/wiki/Locating-Scripts).
 
-* Support for C/C++ language projects
-* Work in progress
+2. Add the line `require "cmake"` preferably to your [premake-system.lua](https://github.com/premake/premake-core/wiki/System-Scripts), or to your premake5.lua script.
 
-### Install ###
-In your project directory:
-```bash
-git clone https://github.com/ovenpasta/premake5-cmake cmake
-```
-add this line to your premake5.lua:
-```lua
-require("cmake")
-```
-
-### Usage ###
-
-Simply generate your project using the `cmake` action:
-```bash
+3. Generate
+```sh
 premake5 cmake
 ```
-

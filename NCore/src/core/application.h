@@ -15,7 +15,7 @@ namespace NC {
    
     void Run();
     void Close() { m_should_stop = true; }
-    void OnEvent(Event& event);
+    void OnEvent(TEvent& event);
     void PushLayer(Layer* layer);
     void PushOverlay(Layer* layer);
     CWindow& GetWindow() { return *m_window; }

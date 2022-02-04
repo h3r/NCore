@@ -24,7 +24,7 @@ public:
   CImguiLayer() : Layer("ImguiLayer") {}
   ~CImguiLayer() {}
 
-  void OnEvent(NC::Event& _event) 
+  void OnEvent(NC::TEvent& _event) 
   {
     CEventDispatcher dispatcher(_event);
     dispatcher.Dispatch<ImGuiBegin>([this](ImGuiBegin& _e) {
@@ -135,4 +135,4 @@ public:
 };
 
 
-REGISTER_LAYER("imgui", CImguiLayer)
+REGISTER_LAYER("ImguiLayer", CImguiLayer)

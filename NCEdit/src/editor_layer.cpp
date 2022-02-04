@@ -19,15 +19,15 @@ public:
   }
 
   void OnUpdate() {
-    log_info("Hey! I'm actually being called!");
+    //log_info("Hey! I'm actually being called!");
   }
 
-  void OnEvent(Event& event) {
-    log_trace("Event: {}", event);
+  void OnEvent(TEvent& event) {
+    log_trace("TEvent: {}", event);
   }
 
   void OnInspect() {
-		log_trace("Event: {}");
+		//log_trace("TEvent: {}");
     //ImGui::Text(GetName().c_str());
   }
 };

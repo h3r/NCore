@@ -15,17 +15,13 @@ namespace NC {
     EventCategoryImGui = BIT(5),
   };
 
-  static uint32_t GetNextUniqueTypeID() {
-    static uint32_t unique_msg_id = 0;
-    ++unique_msg_id;
-    return unique_msg_id;
-  }
+
 
   typedef uint32_t EventType;
-  struct NC_API Event {
+  struct NC_API TEvent {
     bool m_handled = false;
 
-    virtual ~Event() = default;
+    virtual ~TEvent() = default;
 
     virtual const char* GetName() const = 0;
     virtual int GetCategoryFlags() const = 0;
@@ -40,23 +36,16 @@ namespace NC {
     }
   };
 
-  inline std::ostream& operator<<(std::ostream& _os, const Event& _e) {
+  inline std::ostream& operator<<(std::ostream& _os, const TEvent& _e) {
     return _os << _e.ToString();
   }
 
-#define DECLARE_EVENT(type, category)          		                           \
-		static EventType GetStaticType() {                                       \
-			static uint32_t msg_id = GetNextUniqueTypeID();                        \
-			return msg_id;                                                         \
-		}                                                                        \
-		virtual EventType GetEventType()const override { return GetStaticType();}\
-		virtual const char* GetName()   const override { return #type; } 	       \
-		virtual int GetCategoryFlags()  const override { return category; }      \
+
 
 
   class NC_API CEventDispatcher {
   public:
-    CEventDispatcher(Event& _event)
+    CEventDispatcher(TEvent& _event)
       : m_event(_event) {}
 
     // F will be deduced by the compiler
@@ -70,11 +59,11 @@ namespace NC {
     }
 
   private:
-    Event& m_event;
+    TEvent& m_event;
 
   };
 
-  class EventManager {
+  class CEventManager {
 
     //Hacks para guardarme un puntero a una clase templatizada
     struct IMsgBaseCallback {
@@ -109,7 +98,7 @@ namespace NC {
     inline static std::unordered_map < std::string, std::unordered_multimap<uint32_t, TCallbackSlot> > all_events;
 
   public:
-    EventManager() {}
+    CEventManager() {}
 
     template< typename TMsg, typename TMethod >
     static void bind(std::string sender, std::string observer, TMethod method)
@@ -178,3 +167,18 @@ namespace NC {
   };
 
 }
+
+static uint32_t GetNextUniqueTypeID() {
+	static uint32_t unique_msg_id = 0;
+	++unique_msg_id;
+	return unique_msg_id;
+}
+
+#define DECLARE_EVENT(type, category)          		                           \
+		static EventType GetStaticType() {                                       \
+			static uint32_t msg_id = GetNextUniqueTypeID();                        \
+			return msg_id;                                                         \
+		}                                                                        \
+		virtual EventType GetEventType()const override { return GetStaticType();}\
+		virtual const char* GetName()   const override { return #type; } 	       \
+		virtual int GetCategoryFlags()  const override { return category; }      \

@@ -16,7 +16,7 @@ class Layer {
     virtual void OnDetach() {}
     virtual void OnUpdate() {}
     virtual void OnInspect() {}
-    virtual void OnEvent(NC::Event& _event) {}
+    virtual void OnEvent(NC::TEvent& _event) {}
 
     bool IsEnabled() const { return m_enabled; }
     void SetEnabled(bool _enabled) { m_enabled = _enabled; }
@@ -43,7 +43,7 @@ class CLayerStack {
     }
 
     void PushOverlay(Layer* _layer) {
-      m_layers.emplace_back(); 
+      m_layers.emplace_back(_layer); 
     }
 
     void PopLayer(Layer* _layer) { 
@@ -77,7 +77,7 @@ class CLayerStack {
     unsigned int m_inserter = 0;
 
     CLayerStack() {
-      
+			m_inserter = 0;
     }
 
     ~CLayerStack() {

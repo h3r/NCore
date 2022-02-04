@@ -17,8 +17,8 @@ public:
     log_info(m_name);
   }
 
-  void OnEvent(NC::Event& event) {
-    log_trace("Event: {}", event);
+  void OnEvent(NC::TEvent& event) {
+    //log_trace("TEvent: {}", event);
   }
 
 };

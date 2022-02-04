@@ -3,7 +3,7 @@
 
 namespace NC {
   
-  struct NC_API KeyEvent : public Event { 
+  struct NC_API KeyEvent : public TEvent { 
     int m_keycode;
     KeyEvent(int _keycode) : m_keycode(_keycode){}
     //virtual std::string ToString() const override { return fmt::format("{}({})", std::string(GetName()), m_keycode); }
