@@ -6,7 +6,7 @@
 #include "events/application.h"
 #include "events/keyboard.h"
 #include "events/mouse.h"
-#include "platform/opengl/context.h";
+#include "platform/opengl/context.h"
 
 #include "backends/imgui_impl_glfw.cpp"
 #include "backends/imgui_impl_opengl3.cpp"

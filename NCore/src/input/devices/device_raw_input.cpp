@@ -2,8 +2,8 @@
 
 #include "ncpch.h"
 #include "device_raw_input.h"
-#include "input/devices/mouse.h"
-#include "input/devices/keyboard.h"
+#include "input/interfaces/mouse.h"
+#include "input/interfaces/keyboard.h"
 
 // value tables: http://keithditch.powweb.com/Games/html/raw_input.html
 

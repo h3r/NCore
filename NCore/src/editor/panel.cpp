@@ -38,7 +38,8 @@ namespace Editor::Panel
   }
   bool State(std::string name) {
     if (Panel::m_editorPanels.find(name) != Panel::m_editorPanels.end())
-    return Panel::m_editorPanels[name].active;
+			return Panel::m_editorPanels[name].active;
+		return false;
   }
   void RenderAll()
   {

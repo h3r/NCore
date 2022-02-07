@@ -31,8 +31,7 @@ namespace NC {
 
 		auto* controller_layer = LayerRegistry.Produce("ControllerLayer");
 		nc_assert(controller_layer, "");
-		//PushLayer(controller_layer);
-
+		PushLayer(controller_layer);
 
 		//Vertex Array
 		//Vertex Buffer
@@ -50,7 +49,8 @@ namespace NC {
 			};
 			glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
 
-			glDisableVertexAttribArray(0);
+			//glDisableVertexAttribArray(0);
+			glEnableVertexAttribArray(0);
 			glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), nullptr);
 		
 
@@ -105,21 +105,21 @@ namespace NC {
   void CApplication::Run() {
 
     while (!m_should_stop) {
-      glClearColor(.1,.1,.1, 1);
+      glClearColor(.1f,.1f,.1f, 1.f);
       glClear(GL_COLOR_BUFFER_BIT);
 
-			glBindVertexArray(m_vertex_array);
-			glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, nullptr);
+      glBindVertexArray(m_vertex_array);
+      glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, nullptr);
 
-			for (auto* layer : LayerStack) {
-				nc_assert(layer, "Layer is null");
+      for (auto* layer : LayerStack) {
+        nc_assert(layer, "Layer is null");
         layer->OnUpdate();
-			}
+      }
 
       ImGuiBegin begin;
       OnEvent(begin);
-			//float dt = 0.16f;
-			//EventManager.trigger<ImGuiBegin>(this, dt);
+      //float dt = 0.16f;
+      //EventManager.trigger<ImGuiBegin>(this, dt);
 
       for (auto* layer : LayerStack)
         layer->OnInspect();

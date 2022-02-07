@@ -25,13 +25,13 @@ public:
 		p1->RegisterDevice(new CDeviceKeyboard("keyboard"));
 		p1->RegisterDevice(new CDeviceMouse("mouse"));
 		//p1->RegisterDevice(new CDevicePadXbox("gamepad", 0));
-		p1->AssignMapping("data/input/mapping.json");
+		p1->AssignMapping("../data/input/mapping.json");
 
 		Input::CInputController* p2 = EngineInput.CreateInputControl("Player2"); //Configuracion B
 		p2->RegisterDevice(new CDeviceKeyboard("keyboard"));
 		p2->RegisterDevice(new CDeviceMouse("mouse"));
 		//p2->RegisterDevice(new CDevicePadXbox("gamepad", 1));
-		p2->AssignMapping("data/input/mapping.json");
+		p2->AssignMapping("../data/input/mapping.json");
 	}
 
 	void OnDetach() {

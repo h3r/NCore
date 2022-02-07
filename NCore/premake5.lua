@@ -38,7 +38,8 @@ project "NCore"
 	{
 		"_CRT_SECURE_NO_WARNINGS",
 		"GLFW_INCLUDE_NONE",
-    "NOMINMAX"
+		"NOMINMAX",
+		"NC_DYNAMIC_LINK"
 	}
 
 	includedirs

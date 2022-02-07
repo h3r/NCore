@@ -11,3 +11,4 @@ __pycache__
 .github
 node_modules
 *.log
+NCore/src/ncpch.h.hpp

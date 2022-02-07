@@ -91,7 +91,7 @@ namespace Input
 				m_button_definitions[name] = { _type, i++ };
     };
 
-    auto j_data = LoadJson("../../../data/input/button_definitions.json");
+    auto j_data = LoadJson("../data/input/button_definitions.json");
 
 		parse_button_definitions(j_data["mouse"],    INTERFACE_MOUSE);
 		parse_button_definitions(j_data["gamepad"],  INTERFACE_GAMEPAD);

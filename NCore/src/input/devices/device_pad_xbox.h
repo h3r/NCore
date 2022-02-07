@@ -2,6 +2,7 @@
 
 #include "input/device.h"
 #include "input/enums.h"
+/*
 
 class CDevicePadXbox : public Input::IDevice
 {
@@ -18,3 +19,5 @@ public:
 private:
   unsigned int m_controller_id = 0;
 };
+
+*/

@@ -114,7 +114,7 @@ public:
   void End() {
     //EventManager::trigger<NC::ImGuiEnd>();
     ImGuiIO& io = ImGui::GetIO();
-    io.DisplaySize = ImVec2(APP.GetWindow().GetWidth(), APP.GetWindow().GetHeight());
+    io.DisplaySize = ImVec2(float(APP.GetWindow().GetWidth()), float(APP.GetWindow().GetHeight()));
 
     //Rendering
     ImGui::Render();

@@ -19,10 +19,7 @@
 
 namespace Input
 {
-  class CInputController;
-
-  class CInput
-  {
+  class CInput {
   public:
 		static CInput& _INSTANCE_();
 		CInputController& Player(std::string _name);

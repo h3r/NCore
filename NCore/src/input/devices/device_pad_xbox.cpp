@@ -8,6 +8,7 @@
 //#include <Xinput.h>
 //#pragma comment(lib, "xinput.lib")
 
+/*
 namespace
 {
   float GetButtonState(const XINPUT_STATE& _state, int _buttonId)
@@ -71,33 +72,34 @@ namespace
     return std::make_pair(normalizedLX * normalizedMagnitude, normalizedLY * normalizedMagnitude);
 
     //codigo albert
-    /*
-    result.x = static_cast<float>(valueX) / std::numeric_limits<SHORT>::max();
-    result.y = static_cast<float>(valueY) / std::numeric_limits<SHORT>::max();
-    float deadzone = static_cast<float>(valueDeadzone) / std::numeric_limits<SHORT>::max();
-
-    // deal with the dead zone
-    float length = result.Length();
-    if (length <= deadzone)
-    {
-      result = VEC2::Zero;
-    }
-    else
-    {
-      float validLength = 1.f - deadzone;
-      float finalLength = (length - deadzone) / validLength;
-      result.Normalize();
-      result = result * finalLength;
-    }
-
-    return result;*/
+    
+    // result.x = static_cast<float>(valueX) / std::numeric_limits<SHORT>::max();
+    // result.y = static_cast<float>(valueY) / std::numeric_limits<SHORT>::max();
+    // float deadzone = static_cast<float>(valueDeadzone) / std::numeric_limits<SHORT>::max();
+		// 
+    // // deal with the dead zone
+    // float length = result.Length();
+    // if (length <= deadzone)
+    // {
+    //   result = VEC2::Zero;
+    // }
+    // else
+    // {
+    //   float validLength = 1.f - deadzone;
+    //   float finalLength = (length - deadzone) / validLength;
+    //   result.Normalize();
+    //   result = result * finalLength;
+    // }
+		// 
+    // return result;
   }
 }
 
 
 void CDevicePadXbox::Update(Input::TGamepadData& _data)
 {
-  XINPUT_STATE state;
+  
+	XINPUT_STATE state;
   data.connected = XInputGetState(_controllerId, &state) == ERROR_SUCCESS;
 
   if (!data.connected)
@@ -128,6 +130,7 @@ void CDevicePadXbox::Update(Input::TGamepadData& _data)
 	float[rx, ry] = GetAnalogState(state, false);
   data.buttons[Input::BT_RANALOG_X] = rx;
   data.buttons[Input::BT_RANALOG_Y] = ry;
+	
 }
 
 void CDevicePadXbox::Feedback(const Input::TRumbleData& _data)
@@ -137,3 +140,5 @@ void CDevicePadXbox::Feedback(const Input::TRumbleData& _data)
   vibration.wRightMotorSpeed = static_cast<WORD>(data.rightVibration * std::numeric_limits<WORD>::max());
   XInputSetState(_controllerId, &vibration);
 }
+
+*/
