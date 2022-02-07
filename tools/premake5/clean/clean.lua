@@ -8,6 +8,7 @@ newaction {
        os.rmdir("./bin")
        os.remove{"**.ninja", "**.ninja_deps", "**.ninja_log"}
        os.remove{"**.sln", "**.vcxproj", "**.vcxproj.*"}
+       os.remove{"CMakeLists.txt", "**.cmake" }
        print("done.")
     end
  }
