@@ -52,6 +52,11 @@ project "NCEdit"
 		runtime "Debug"
 		symbols "on"
 
+		postbuildcommands
+		{
+			"{COPYDIR} \"%{LibraryDir.vulkansdk_debugdll}\" \"%{cfg.targetdir}\""
+		}
+
 		links
 		{
 			--"%{Library.ShaderC_Debug}",

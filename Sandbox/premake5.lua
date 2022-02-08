@@ -52,7 +52,7 @@ project "Sandbox"
 		
 		postbuildcommands
 		{
-		--	"{COPYDIR} \"%{LibraryDir.VulkanSDK_DebugDLL}\" \"%{cfg.targetdir}\""
+			"{COPYDIR} \"%{LibraryDir.vulkansdk_debugdll}\" \"%{cfg.targetdir}\""
 		}
 
 	filter "configurations:Release"

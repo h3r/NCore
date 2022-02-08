@@ -21,8 +21,10 @@ IncludeDir["vulkansdk"] = "%{VULKAN_SDK}/Include"
 LibraryDir = {}
 
 LibraryDir["vulkansdk"] = "%{VULKAN_SDK}/Lib"
-LibraryDir["vulkansdk_debug"] = "%{wks.location}/NCore/vendor/vulkansdk/Lib"
-LibraryDir["vulkansdk_debugdll"] = "%{wks.location}/NCore/vendor/vulkansdk/Bin"
+--LibraryDir["vulkansdk_debug"] = "%{wks.location}/bin/VulkanSDK/Lib"
+LibraryDir["vulkansdk_debug"] = "%{VULKAN_SDK}/Lib"
+--LibraryDir["vulkansdk_debugdll"] = "%{wks.location}/bin/VulkanSDK/Bin"
+LibraryDir["vulkansdk_debugdll"] = "%{VULKAN_SDK}/Bin"
 
 Library = {}
 Library["vulkan"] = "%{LibraryDir.vulkansdk}/vulkan-1.lib"

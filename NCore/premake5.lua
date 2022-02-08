@@ -54,7 +54,7 @@ project "NCore"
 		"%{IncludeDir.entt}",
 		--"%{IncludeDir.yaml_cpp}",
 		--"%{IncludeDir.imguizmo}",
-		--"%{IncludeDir.vulkansdk}",
+		"%{IncludeDir.vulkansdk}",
 		"%{IncludeDir.json}",
 	}
 
@@ -86,17 +86,34 @@ project "NCore"
 		runtime "Debug"
 		symbols "on"
 
-		postbuildcommands
+		links
 		{
-		-- "{COPYDIR} \"%{LibraryDir.VulkanSDK_DebugDLL}\" \"%{cfg.targetdir}\""
+			"%{Library.shaderc_debug}",
+			"%{Library.spirv_cross_debug}",
+			"%{Library.spirv_cross_glsl_debug}"
 		}
+
 
 	filter "configurations:Release"
 		defines "NC_RELEASE"
 		runtime "Release"
 		optimize "on"
 
+		links
+		{
+			"%{Library.shaderc_release}",
+			"%{Library.spirv_cross_release}",
+			"%{Library.spirv_cross_glsl_release}"
+		}
+
 	filter "configurations:Dist"
 		defines "NC_DIST"
 		runtime "Release"
 		optimize "on"
+
+		links
+		{
+			"%{Library.shaderc_release}",
+			"%{Library.spirv_cross_release}",
+			"%{Library.spirv_cross_glsl_release}"
+		}
