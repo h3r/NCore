@@ -2,7 +2,6 @@
 
 #include "core.h"
 #include "log.h"
-#include <filesystem>
 
 #ifdef NC_ENABLE_ASSERTS
   #define nc_assert(x, ...) { \
@@ -14,3 +13,8 @@
 #else
   #define nc_assert(x, ...)
 #endif
+
+#define nc_fatal(...) { \
+	log_error("Fatal error: {0}", __VA_ARGS__); __debugbreak();\
+}\
+

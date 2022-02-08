@@ -11,7 +11,7 @@ namespace NC {
     static CApplication& Get() { return *s_instance; }
 
     CApplication();
-    virtual ~CApplication();
+		virtual ~CApplication();
    
     void Run();
     void Close() { m_should_stop = true; }
@@ -22,7 +22,7 @@ namespace NC {
 
   private:
     static CApplication* s_instance;
-    std::unique_ptr<CWindow> m_window;
+    Scope<CWindow> m_window;
     bool m_should_stop = false;
     bool m_minimized = false;
 

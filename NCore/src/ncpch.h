@@ -14,6 +14,7 @@
 #include <fstream>
 #include <sstream>
 #include <iostream>
+#include <filesystem>
 
 #include <limits>
 #include <random>
@@ -27,4 +28,6 @@
 #include "nlohmann/json.hpp"
 using json = nlohmann::json;
 // --- vendors
+
+namespace fs = std::filesystem;
 
