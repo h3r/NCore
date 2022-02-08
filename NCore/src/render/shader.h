@@ -1,6 +1,5 @@
 #pragma once
-
-#include <glad/glad.h>
+#include "resources/resource.h"
 
 namespace NC {
 
@@ -21,8 +20,8 @@ namespace NC {
 
 		virtual const std::string& GetName() const = 0;
 
-		//static Ref<CShader> Create(const std::string& filepath);
-		//static Ref<CShader> Create(const std::string& name, const std::string& vertexSrc, const std::string& fragmentSrc);
+		static Ref<CShader> Create(const std::string& filepath);
+		static Ref<CShader> Create(const std::string& name, const std::string& vertexSrc, const std::string& fragmentSrc);
 
 	private:
 		unsigned int m_handle;

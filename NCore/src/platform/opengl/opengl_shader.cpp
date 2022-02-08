@@ -82,12 +82,14 @@ namespace NC
 			}
 
 			//extract name from filepath
-			m_name = "";
+			fs::path path(_filepath);
+			m_name = path.filename().string();
 		}
 
 		COpenGLShader::COpenGLShader(const std::string& _name, const std::string& _vertex_source, const std::string& _fragment_source)
 			: m_name(_name)
 		{
+			Utils::CreateCacheDirectoryIfNeeded();
 			std::unordered_map<GLenum, std::string> sources;
 			sources[GL_VERTEX_SHADER] = _vertex_source;
 			sources[GL_FRAGMENT_SHADER] = _fragment_source;
@@ -194,20 +196,18 @@ namespace NC
 			shaderc::Compiler compiler;
 			shaderc::CompileOptions options;
 			options.SetTargetEnvironment(shaderc_target_env_vulkan, shaderc_env_version_vulkan_1_2);
-			options.AddMacroDefinition("OPENGL");
+			//options.AddMacroDefinition("OPENGL");
 			const static bool optimize = true;
-			if (optimize) options.SetOptimizationLevel(shaderc_optimization_level_performance);
+			if (optimize) 
+				options.SetOptimizationLevel(shaderc_optimization_level_performance);
 
 			fs::path cacheDir = Utils::GetCacheDirectory();
 
 			auto& shaderData = m_vulkan_spirv;
 			shaderData.clear();
-
 			for (auto&& [stage, source] : _shader_sources)
 			{
-				fs::path shaderPath = m_filepath;
-				fs::path cachedPath = cacheDir / (shaderPath.filename().string() + Utils::GLShaderStageCachedVulkanFileExtension(stage));
-
+				fs::path cachedPath = cacheDir / (m_name + Utils::GLShaderStageCachedVulkanFileExtension(stage));
 
 				std::ifstream in(cachedPath, std::ios::in | std::ios::binary);
 				if (in.is_open())
@@ -222,15 +222,14 @@ namespace NC
 				}
 				else
 				{
-					nc_assert(false, "Failed to open file: {0}", cachedPath);
 					shaderc::SpvCompilationResult module = compiler.CompileGlslToSpv(source, Utils::GLShaderStageToShaderC(stage), m_filepath.c_str(), options);
 					if (module.GetCompilationStatus() != shaderc_compilation_status_success)
 						nc_fatal(module.GetErrorMessage());
 
 					shaderData[stage] = std::vector<uint32_t>(module.cbegin(),module.cend());
+
 					std::ofstream out(cachedPath, std::ios::out | std::ios::binary);
-					if (out.is_open())
-					{
+					if (out.is_open()) {
 						auto& data = shaderData[stage];
 						out.write((char*)data.data(), data.size() * sizeof(uint32_t));
 						out.flush();
@@ -263,8 +262,7 @@ namespace NC
 			m_opengl_sourcecode.clear();
 			for (auto&& [stage, spirv] : m_vulkan_spirv)
 			{
-				std::filesystem::path shaderFilePath = m_filepath;
-				std::filesystem::path cachedPath = cacheDirectory / (shaderFilePath.filename().string() + Utils::GLShaderStageCachedOpenGLFileExtension(stage));
+				std::filesystem::path cachedPath = cacheDirectory / (m_name + Utils::GLShaderStageCachedOpenGLFileExtension(stage));
 
 				std::ifstream in(cachedPath, std::ios::in | std::ios::binary);
 				if (in.is_open())
@@ -324,11 +322,11 @@ namespace NC
 			}
 		}
 
-		void COpenGLShader::Bind() {
+		void COpenGLShader::Bind() const {
 			glUseProgram(m_handle);
 		}
 
-		void COpenGLShader::Unbind() {
+		void COpenGLShader::Unbind() const {
 			glUseProgram(0);
 		}
 

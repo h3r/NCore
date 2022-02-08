@@ -2,6 +2,8 @@
 #include "core.h"
 #include "core/window.h"
 #include "events/application.h"
+#include "render/shader.h"
+#include "render/buffer.h"
 
 class Layer;
 namespace NC {
@@ -25,6 +27,9 @@ namespace NC {
     Scope<CWindow> m_window;
     bool m_should_stop = false;
     bool m_minimized = false;
+		Ref<CShader> m_shader;
+		Ref<VertexBuffer> m_vertex_buffer;
+		Ref<IndexBuffer>  m_index_buffer;
 
     bool OnWindowClose(WindowCloseEvent& _event);
     bool OnWindowResize(WindowResizeEvent& _event);

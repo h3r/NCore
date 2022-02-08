@@ -23,7 +23,7 @@ public:
   }
 
   void OnEvent(TEvent& event) {
-    log_trace("TEvent: {}", event);
+    //log_trace("TEvent: {}", event);
   }
 
   void OnInspect() {

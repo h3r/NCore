@@ -1,6 +1,7 @@
 #include "ncpch.h"
 #include <sstream>
 #include <filesystem>
+
 namespace fs = std::filesystem;
 
 json LoadJson(const std::string& filename) {
