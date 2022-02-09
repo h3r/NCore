@@ -17,7 +17,7 @@ group "Dependencies"
 group ""
 
 project "NCore"
-	kind          "SharedLib"
+	kind          "StaticLib"
 	language      "C++"
 	cppdialect    "C++17"
 	staticruntime "off"
@@ -79,7 +79,7 @@ project "NCore"
 
 	filter "system:windows"
 		systemversion "latest"
-		defines "NC_BUILD_DLL"
+		--defines "NC_BUILD_DLL"
 
 	filter "configurations:Debug"
 		defines "NC_DEBUG"
