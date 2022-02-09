@@ -106,8 +106,7 @@ namespace NC {
 
 			{ //Render our Scene
 				OnEvent(Renderer::Begin());
-				m_shader->Bind();
-				OnEvent(Renderer::Submit(m_vertex_array));
+				OnEvent(Renderer::Submit(m_shader, m_vertex_array));
 				OnEvent(Renderer::End());
 			}
 
@@ -143,6 +142,7 @@ namespace NC {
 		});
 
 		dispatcher.Dispatch<Renderer::Submit>([](Renderer::Submit& e) { 
+			e.m_shader->Bind();
 			e.m_vertex_array->Bind();
 			RenderCommand::DrawIndexed(e.m_vertex_array);
 			return true; 
