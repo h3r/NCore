@@ -3,23 +3,23 @@
 
 namespace Input
 {
-  class CInputController;
-  struct TMappedButton
+  class InputController;
+  struct MappedButton
   {
-    TButton result;
+    Button result;
     bool check_all = false;
-    std::vector<const TButton*> buttons;
+    std::vector<const Button*> buttons;
   };
 
-  class CMapping
+  class Mapping
   {
   public:
-    CMapping(CInputController& _controller);
+    Mapping(InputController& _controller);
     void Update(float _dt);
     void Load(const std::string& _file);
-    const TButton& GetMappedButton(const std::string& _name) const;
+    const Button& GetMappedButton(const std::string& _name) const;
 	private:
-    CInputController& m_controller;
-    std::map<std::string, TMappedButton> m_buttons;
+    InputController& m_controller;
+    std::map<std::string, MappedButton> m_buttons;
   };
 }

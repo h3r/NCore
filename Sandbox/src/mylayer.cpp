@@ -4,30 +4,30 @@
 #include "imgui/imgui.h"
 
 
-class CMyLayer : public Layer 
+class MyLayer : public Layer 
 {
 public:
-  CMyLayer() : Layer("MyLayer") {
+  MyLayer() : Layer("MyLayer") {
     log_info("Constructor");
   }
   void OnAttach() {
-    NC::CEventManager::bind<NC::ImGuiBegin>("ImGui", "MyLayer", [&](const NC::ImGuiBegin& _msg) { Inspect(); });
+    NC::EventManager::bind<NC::ImGuiBegin>("ImGui", "MyLayer", [&](const NC::ImGuiBegin& _msg) { Inspect(); });
   }
   
   void OnDetach() {
-    NC::CEventManager::unbind<NC::ImGuiBegin>("ImGui", "MyLayer");
+    NC::EventManager::unbind<NC::ImGuiBegin>("ImGui", "MyLayer");
   }
 
   void OnUpdate() {
     //log_info("Hey! I'm actually being called!");
   }
 
-  void OnEvent(NC::TEvent& event) {
-    //log_trace("TEvent: {}", event);
+  void OnEvent(NC::Event& event) {
+    //log_trace("Event: {}", event);
   }
 
   void Inspect() {
     //ImGui::Text(GetName().c_str());
   }
 };
-REGISTER_LAYER("MyLayer", CMyLayer);
+REGISTER_LAYER("MyLayer", MyLayer);

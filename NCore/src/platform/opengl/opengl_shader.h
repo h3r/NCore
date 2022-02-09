@@ -5,12 +5,12 @@
 
 namespace NC {
 
-	class NC_API COpenGLShader : public CShader
+	class NC_API OpenGLShader : public Shader
 	{
 	public:
-		COpenGLShader(const std::string& filepath);
-		COpenGLShader(const std::string& name, const std::string& vertexSrc, const std::string& fragmentSrc);
-		virtual ~COpenGLShader();
+		OpenGLShader(const std::string& filepath);
+		OpenGLShader(const std::string& name, const std::string& vertexSrc, const std::string& fragmentSrc);
+		virtual ~OpenGLShader();
 
 		virtual const std::string& GetName() const override { return m_name; }
 

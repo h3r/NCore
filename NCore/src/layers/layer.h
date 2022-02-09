@@ -1,5 +1,5 @@
 #include <map>
-#include <core/log.h>
+#include "core/core.h"
 #include "events/event.h"
 
 /*
@@ -16,7 +16,7 @@ class Layer {
     virtual void OnDetach() {}
     virtual void OnUpdate() {}
     virtual void OnInspect() {}
-    virtual void OnEvent(NC::TEvent& _event) {}
+    virtual void OnEvent(NC::Event& _event) {}
 
     bool IsEnabled() const { return m_enabled; }
     void SetEnabled(bool _enabled) { m_enabled = _enabled; }

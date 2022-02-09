@@ -3,7 +3,7 @@
 
 namespace Input
 {
-	struct TButton {
+	struct Button {
 		float m_value = 0.f;
 		float m_previous_value = 0.f;
 		float m_time_pressed = 0.f;
@@ -23,6 +23,6 @@ namespace Input
 			else if (isPressed())
 				m_time_pressed += _dt;
 		}
-    static const TButton dummy;
+    static const Button dummy;
 	};
 }

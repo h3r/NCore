@@ -22,12 +22,12 @@ public:
     //log_info("Hey! I'm actually being called!");
   }
 
-  void OnEvent(TEvent& event) {
-    //log_trace("TEvent: {}", event);
+  void OnEvent(Event& event) {
+    //log_trace("Event: {}", event);
   }
 
   void OnInspect() {
-		//log_trace("TEvent: {}");
+		//log_trace("Event: {}");
     //ImGui::Text(GetName().c_str());
   }
 };

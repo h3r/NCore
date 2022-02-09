@@ -3,11 +3,11 @@
 
 using namespace glm;
 
-class Game : public NC::CApplication
+class NCEditor : public NC::Application
 {
 public:
   
-  Game() {
+	NCEditor() {
 		Layer* mylayer = LayerRegistry.Produce("EditorLayer");
     PushLayer(mylayer);
 		
@@ -15,7 +15,7 @@ public:
 		//NC::EventManager::bind<NC::OnRender>("NCore", this, Render);//.bind<NC::OnRender>(Render);
   }
 
-  ~Game() {
+  ~NCEditor() {
   
   }
 
@@ -28,7 +28,7 @@ public:
 	}
 };
 
-NC::CApplication* NC::CreateApplication() {
-  return new Game();
+NC::Application* NC::CreateApplication() {
+  return new NCEditor();
 }
 

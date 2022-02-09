@@ -6,13 +6,13 @@
 #include "input/interfaces/mouse.h"
 //#include <Windowsx.h>         // GET_Y_LPARAM
 
-CDeviceMouse::CDeviceMouse(const std::string& _name)
-  : Input::IDevice(_name)
+DeviceMouse::DeviceMouse(const std::string& _name)
+  : Input::Device(_name)
 {
   StartRawInputData();
 }
 
-void CDeviceMouse::Update(Input::TMouseData& _data)
+void DeviceMouse::Update(Input::MouseData& _data)
 {
 	_data.pos_x = static_cast<float>(m_pos_x);
 	_data.pos_y = static_cast<float>(m_pos_y);
@@ -28,7 +28,7 @@ void CDeviceMouse::Update(Input::TMouseData& _data)
 }
 
 
-void CDeviceMouse::StartRawInputData() {
+void DeviceMouse::StartRawInputData() {
 /*
 #ifndef HID_USAGE_PAGE_GENERIC
 #define HID_USAGE_PAGE_GENERIC         ((USHORT) 0x01)
@@ -46,12 +46,12 @@ void CDeviceMouse::StartRawInputData() {
 */
 }
 
-void CDeviceMouse::FlushDevice() {
+void DeviceMouse::FlushDevice() {
 	memset(m_buttons, 0, sizeof(bool) * Input::BT_MOUSE_COUNT);
 }
 
 /*
-int CDeviceMouse::processWindowMsg(UINT message, WPARAM wParam, LPARAM lParam)
+int DeviceMouse::processWindowMsg(UINT message, WPARAM wParam, LPARAM lParam)
 {
   switch (message)
   {

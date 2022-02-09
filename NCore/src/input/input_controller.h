@@ -2,35 +2,35 @@
 
 namespace Input {
 
-	class CInputController {
+	class InputController {
 
 	public:
-		CInputController(std::string _name)
+		InputController(std::string _name)
 			: m_mapping(*this)
 			, m_name(_name)
 		{};
 
-		const CMouse& Mouse()    const { return m_mouse; }
-		const CGamepad& Gamepad()  const { return m_gamepad; }
-		const CKeyboard& Keyboard() const { return m_keyboard; }
-		void  Feedback(const TRumbleData& _data);
+		const Mouse& GetMouse()    const { return m_mouse; }
+		const Gamepad& GetGamepad()  const { return m_gamepad; }
+		const Keyboard& GetKeyboard() const { return m_keyboard; }
+		void  Feedback(const RumbleData& _data);
 
-		void RegisterDevice(IDevice* _device);
+		void RegisterDevice(Device* _device);
 		void AssignMapping(const std::string& _mappingFile);
-		const CMapping& Mapping()  const { return m_mapping; }
+		const Mapping& GetMapping()  const { return m_mapping; }
 
-		const TButton& operator[](Key _key) const;
-		const TButton& operator[](MouseButton _bt) const;
-		const TButton& operator[](GamePadButton _bt) const;
-		const TButton& operator[](const TButtonDef& _def) const;
-		const TButton& operator[](const std::string& _name) const;
+		const Button& operator[](Key _key) const;
+		const Button& operator[](MouseButton _bt) const;
+		const Button& operator[](GamePadButton _bt) const;
+		const Button& operator[](const ButtonDef& _def) const;
+		const Button& operator[](const std::string& _name) const;
 
-		friend class CInput;
+		friend class Input;
 	protected:
-		CMouse    m_mouse;
-		CGamepad  m_gamepad;
-		CKeyboard m_keyboard;
-		CMapping  m_mapping;
+		Mouse    m_mouse;
+		Gamepad  m_gamepad;
+		Keyboard m_keyboard;
+		Mapping  m_mapping;
 
 	private:
 		std::string m_name;

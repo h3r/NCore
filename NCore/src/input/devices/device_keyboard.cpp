@@ -3,24 +3,24 @@
 #include "ncpch.h"
 #include "device_keyboard.h"
 
-CDeviceKeyboard::CDeviceKeyboard(const std::string& _name)
-	: Input::IDevice(_name)
+DeviceKeyboard::DeviceKeyboard(const std::string& _name)
+	: Input::Device(_name)
 {
 }
 
-void CDeviceKeyboard::Update(Input::TKeyboardData& _data)
+void DeviceKeyboard::Update(Input::KeyboardData& _data)
 {
   _data = m_data;
 }
 
-void CDeviceKeyboard::FlushDevice() 
+void DeviceKeyboard::FlushDevice() 
 {
 	memset(m_data.keys, 0, sizeof(bool)*Input::BT_KEYBOARD_COUNT);
 }
 
 
 /*
-int CDeviceKeyboard::processWindowMsg(UINT message, WPARAM wParam, LPARAM lParam)
+int DeviceKeyboard::processWindowMsg(UINT message, WPARAM wParam, LPARAM lParam)
 {
   if (message == WM_KEYDOWN) {
     my_data.keys[wParam] = true;

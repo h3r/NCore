@@ -4,39 +4,39 @@
 #include "events/application.h"
 #include "render/shader.h"
 #include "render/buffer.h"
+#include "render/vertex_array.h"
 
 class Layer;
 namespace NC {
-  class NC_API CApplication {
+  class NC_API Application {
 
   public:
-    static CApplication& Get() { return *s_instance; }
+    static Application& Get() { return *s_instance; }
 
-    CApplication();
-		virtual ~CApplication();
+    Application();
+		virtual ~Application();
    
     void Run();
     void Close() { m_should_stop = true; }
-    void OnEvent(TEvent& event);
+    void OnEvent(Event& event);
     void PushLayer(Layer* layer);
     void PushOverlay(Layer* layer);
     CWindow& GetWindow() { return *m_window; }
 
   private:
-    static CApplication* s_instance;
+    static Application* s_instance;
     Scope<CWindow> m_window;
     bool m_should_stop = false;
     bool m_minimized = false;
-		Ref<CShader> m_shader;
-		Ref<VertexBuffer> m_vertex_buffer;
-		Ref<IndexBuffer>  m_index_buffer;
+		Ref<Shader> m_shader;
+		Ref<VertexArray>  m_vertex_array;
 
     bool OnWindowClose(WindowCloseEvent& _event);
     bool OnWindowResize(WindowResizeEvent& _event);
   };
 
   //To be defined in client
-  CApplication* CreateApplication();
+  Application* CreateApplication();
 }
 
-#define APP NC::CApplication::Get()
+#define APP NC::Application::Get()

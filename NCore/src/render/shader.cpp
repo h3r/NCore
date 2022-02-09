@@ -4,23 +4,23 @@
 #include <glad/glad.h>
 
 namespace NC {
-	Ref<CShader> CShader::Create(const std::string& filepath)
+	Ref<Shader> Shader::Create(const std::string& filepath)
 	{
-		return CreateRef<COpenGLShader>(filepath);
+		return CreateRef<OpenGLShader>(filepath);
 		/*switch (Renderer::GetAPI()) {
 			case RendererAPI::API::None:    nc_fatal("RendererAPI::None is currently not supported!"); return nullptr;
-			case RendererAPI::API::OpenGL:  return CreateRef<COpenGLShader>(filepath);
+			case RendererAPI::API::OpenGL:  return CreateRef<OpenGLShader>(filepath);
 			default:nc_fatal("Unknown RendererAPI!");return nullptr;
 		}*/
 	}
 
-	Ref<CShader> CShader::Create(const std::string& name, const std::string& vertexSrc, const std::string& fragmentSrc)
+	Ref<Shader> Shader::Create(const std::string& name, const std::string& vertexSrc, const std::string& fragmentSrc)
 	{
-		return CreateRef<COpenGLShader>(name, vertexSrc, fragmentSrc);
+		return CreateRef<OpenGLShader>(name, vertexSrc, fragmentSrc);
 
 		/*switch (Renderer::GetAPI()) {
 			case RendererAPI::API::None:    nc_fatal("RendererAPI::None is currently not supported!"); return nullptr;
-			case RendererAPI::API::OpenGL:  return CreateRef<COpenGLShader>(name, vertexSrc, fragmentSrc);
+			case RendererAPI::API::OpenGL:  return CreateRef<OpenGLShader>(name, vertexSrc, fragmentSrc);
 			default:
 				nc_fatal("Unknown RendererAPI!");
 				return nullptr;

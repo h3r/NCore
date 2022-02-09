@@ -3,10 +3,10 @@
 
 namespace NC {
 
-	class NC_API CShader
+	class NC_API Shader
 	{
 	public:
-		virtual ~CShader() = default;
+		virtual ~Shader() = default;
 		virtual void Bind() const = 0;
 		virtual void Unbind() const = 0;
 
@@ -20,8 +20,8 @@ namespace NC {
 
 		virtual const std::string& GetName() const = 0;
 
-		static Ref<CShader> Create(const std::string& filepath);
-		static Ref<CShader> Create(const std::string& name, const std::string& vertexSrc, const std::string& fragmentSrc);
+		static Ref<Shader> Create(const std::string& filepath);
+		static Ref<Shader> Create(const std::string& name, const std::string& vertexSrc, const std::string& fragmentSrc);
 
 	private:
 		unsigned int m_handle;

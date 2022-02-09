@@ -2,7 +2,7 @@
 
 #include <memory>
 
-#include "platformdetector.h"
+#include "utils/platformdetector.h"
 
 
 #ifdef NC_PLATFORM_WINDOWS
@@ -55,6 +55,7 @@ namespace NC {
 
 }
 
-#include "log.h"
-#include "assert.h"
-#include "utils.h"
+#include "utils/log.h"
+#include "utils/uuid.h"
+#include "utils/assert.h"
+#include "utils/utils.h"

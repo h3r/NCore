@@ -5,23 +5,23 @@
 
 namespace Input
 {
-  struct TKeyboardData
+  struct KeyboardData
   {
     bool keys[BT_KEYBOARD_COUNT];
   };
 
-  class CKeyboard
+  class Keyboard
   {
   public:
-    void Update(const TKeyboardData& _data, float _dt)
+    void Update(const KeyboardData& _data, float _dt)
     {
       for (int i = 0; i < BT_KEYBOARD_COUNT; ++i)
         m_buttons[i].update(_data.keys[i] ? 1.f : 0.f, _dt);
     }
 
-		const TButton& GetButton(const Key& _key) const{return m_buttons[_key];}
+		const Button& GetButton(const Key& _key) const{return m_buttons[_key];}
 		
 	private:
-    TButton m_buttons[BT_KEYBOARD_COUNT];
+    Button m_buttons[BT_KEYBOARD_COUNT];
   };
 }

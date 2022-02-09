@@ -20,7 +20,7 @@ namespace NC {
 
   class NC_API CWindow {
   public:
-      using FnEventCallback = std::function<void(TEvent&)>;
+      using FnEventCallback = std::function<void(Event&)>;
     
       virtual ~CWindow() {}
 

@@ -47,7 +47,7 @@ namespace Input
 
   static const int BT_KEYBOARD_COUNT = 256;
 
-  struct TButtonDef
+  struct ButtonDef
   {
     Interface type;
     int buttonId;

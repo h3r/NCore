@@ -2,13 +2,13 @@
 
 #include "input/input.h"
 
-class CDeviceKeyboard : public Input::IDevice
+class DeviceKeyboard : public Input::Device
 {
 public:
-	CDeviceKeyboard(const std::string& _name);
-  void Update(Input::TKeyboardData& _data) override;
+	DeviceKeyboard(const std::string& _name);
+  void Update(Input::KeyboardData& _data) override;
 	void FlushDevice() override;
   //int processWindowMsg(UINT message, WPARAM wParam, LPARAM lParam) override;
 private:
-  Input::TKeyboardData m_data;
+  Input::KeyboardData m_data;
 };

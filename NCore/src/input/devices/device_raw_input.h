@@ -3,13 +3,13 @@
 #include "input/device.h"
 #include "input/enums.h"
 
-class CDeviceRawInput : public Input::IDevice
+class DeviceRawInput : public Input::Device
 {
 public:
-  CDeviceRawInput(const std::string& _name);
+  DeviceRawInput(const std::string& _name);
 
-  void Update(Input::TMouseData& _data) override;
-  void Update(Input::TKeyboardData& _data) override;
+  void Update(Input::MouseData& _data) override;
+  void Update(Input::KeyboardData& _data) override;
   //int processWindowMsg(UINT message, WPARAM wParam, LPARAM lParam);
 	void FlushDevice() override {}
 

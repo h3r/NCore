@@ -3,7 +3,7 @@
 #define _NC_H_
 namespace NC {}
 
-#include "core/log.h"
+#include "core/core.h"
 #include "layers/layer.h"
 #include "core/application.h"
 

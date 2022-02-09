@@ -68,7 +68,7 @@ namespace NC
 		}
 
 
-		COpenGLShader::COpenGLShader(const std::string& _filepath)
+		OpenGLShader::OpenGLShader(const std::string& _filepath)
 			: m_filepath(_filepath)
 		{
 			Utils::CreateCacheDirectoryIfNeeded();
@@ -86,7 +86,7 @@ namespace NC
 			m_name = path.filename().string();
 		}
 
-		COpenGLShader::COpenGLShader(const std::string& _name, const std::string& _vertex_source, const std::string& _fragment_source)
+		OpenGLShader::OpenGLShader(const std::string& _name, const std::string& _vertex_source, const std::string& _fragment_source)
 			: m_name(_name)
 		{
 			Utils::CreateCacheDirectoryIfNeeded();
@@ -99,11 +99,11 @@ namespace NC
 			CreateProgram();
 		}
 
-		COpenGLShader::~COpenGLShader() {
+		OpenGLShader::~OpenGLShader() {
 			glDeleteProgram(m_handle);
 		}
 
-		std::string COpenGLShader::ReadFile(const std::string& filepath) {
+		std::string OpenGLShader::ReadFile(const std::string& filepath) {
 			std::string result;
 			std::ifstream in(filepath, std::ios::in | std::ios::binary); // ifstream closes itself due to RAII
 			if (!in) {nc_fatal("Could not open file '{0}'", filepath);}
@@ -124,7 +124,7 @@ namespace NC
 		}
 
 
-		std::unordered_map<GLenum, std::string> COpenGLShader::PreProcess(const std::string& _source)
+		std::unordered_map<GLenum, std::string> OpenGLShader::PreProcess(const std::string& _source)
 		{
 			std::unordered_map<GLenum, std::string> shaderSources;
 
@@ -151,7 +151,7 @@ namespace NC
 			return shaderSources;
 		}
 
-		void COpenGLShader::CreateProgram() {
+		void OpenGLShader::CreateProgram() {
 			GLuint program = glCreateProgram();
 
 			std::vector<GLuint> shaderIDs;
@@ -189,7 +189,7 @@ namespace NC
 		}
 
 
-		void COpenGLShader::CompileOrGetVulkanBinaries(const std::unordered_map<uint32_t, std::string>& _shader_sources)
+		void OpenGLShader::CompileOrGetVulkanBinaries(const std::unordered_map<uint32_t, std::string>& _shader_sources)
 		{
 			GLuint program = glCreateProgram();
 
@@ -207,7 +207,8 @@ namespace NC
 			shaderData.clear();
 			for (auto&& [stage, source] : _shader_sources)
 			{
-				fs::path cachedPath = cacheDir / (m_name + Utils::GLShaderStageCachedVulkanFileExtension(stage));
+				fs::path shaderFilePath = m_filepath.empty()? m_name : m_filepath;
+				fs::path cachedPath = cacheDir / (shaderFilePath.filename().string() + Utils::GLShaderStageCachedVulkanFileExtension(stage));
 
 				std::ifstream in(cachedPath, std::ios::in | std::ios::binary);
 				if (in.is_open())
@@ -222,9 +223,10 @@ namespace NC
 				}
 				else
 				{
-					shaderc::SpvCompilationResult module = compiler.CompileGlslToSpv(source, Utils::GLShaderStageToShaderC(stage), m_filepath.c_str(), options);
-					if (module.GetCompilationStatus() != shaderc_compilation_status_success)
-						nc_fatal(module.GetErrorMessage());
+					shaderc::SpvCompilationResult module = compiler.CompileGlslToSpv(source, Utils::GLShaderStageToShaderC(stage), shaderFilePath.string().c_str(), options);
+					if (module.GetCompilationStatus() != shaderc_compilation_status_success) {
+						nc_fatal(fmt::format("ShaderC {0} Compilation error/s: {1}", module.GetNumErrors(), module.GetErrorMessage()));
+					}
 
 					shaderData[stage] = std::vector<uint32_t>(module.cbegin(),module.cend());
 
@@ -245,7 +247,7 @@ namespace NC
 		}
 
 
-		void COpenGLShader::CompileOrGetOpenGLBinaries()
+		void OpenGLShader::CompileOrGetOpenGLBinaries()
 		{
 			auto& shaderData = m_opengl_spirv;
 
@@ -299,7 +301,7 @@ namespace NC
 			}
 		}
 
-		void COpenGLShader::Reflect(GLenum stage, const std::vector<uint32_t>& _shaderData)
+		void OpenGLShader::Reflect(GLenum stage, const std::vector<uint32_t>& _shaderData)
 		{
 			spirv_cross::Compiler compiler(_shaderData);
 			spirv_cross::ShaderResources resources = compiler.get_shader_resources();
@@ -322,59 +324,59 @@ namespace NC
 			}
 		}
 
-		void COpenGLShader::Bind() const {
+		void OpenGLShader::Bind() const {
 			glUseProgram(m_handle);
 		}
 
-		void COpenGLShader::Unbind() const {
+		void OpenGLShader::Unbind() const {
 			glUseProgram(0);
 		}
 
-		void COpenGLShader::SetInt(   const std::string& name, int value) {              UploadUniformInt(name, value);    }
-		void COpenGLShader::SetFloat( const std::string& name, float value) {            UploadUniformFloat(name, value);  }
-		void COpenGLShader::SetFloat2(const std::string& name, const glm::vec2& value) { UploadUniformFloat2(name, value); }
-		void COpenGLShader::SetFloat3(const std::string& name, const glm::vec3& value) { UploadUniformFloat3(name, value); }
-		void COpenGLShader::SetFloat4(const std::string& name, const glm::vec4& value) { UploadUniformFloat4(name, value); }
-		void COpenGLShader::SetMat4(  const std::string& name, const glm::mat4& value) { UploadUniformMat4(name, value);   }
-		void COpenGLShader::SetIntArray(const std::string& name, int* values, uint32_t count) { 
+		void OpenGLShader::SetInt(   const std::string& name, int value) {              UploadUniformInt(name, value);    }
+		void OpenGLShader::SetFloat( const std::string& name, float value) {            UploadUniformFloat(name, value);  }
+		void OpenGLShader::SetFloat2(const std::string& name, const glm::vec2& value) { UploadUniformFloat2(name, value); }
+		void OpenGLShader::SetFloat3(const std::string& name, const glm::vec3& value) { UploadUniformFloat3(name, value); }
+		void OpenGLShader::SetFloat4(const std::string& name, const glm::vec4& value) { UploadUniformFloat4(name, value); }
+		void OpenGLShader::SetMat4(  const std::string& name, const glm::mat4& value) { UploadUniformMat4(name, value);   }
+		void OpenGLShader::SetIntArray(const std::string& name, int* values, uint32_t count) { 
 																																										 UploadUniformIntArray(name, values, count);
 		}
-		void COpenGLShader::UploadUniformInt(const std::string& name, int value) {
+		void OpenGLShader::UploadUniformInt(const std::string& name, int value) {
 			GLint location = glGetUniformLocation(m_handle, name.c_str());
 			glUniform1i(location, value);
 		}
 
-		void COpenGLShader::UploadUniformIntArray(const std::string& name, int* values, uint32_t count) {
+		void OpenGLShader::UploadUniformIntArray(const std::string& name, int* values, uint32_t count) {
 			GLint location = glGetUniformLocation(m_handle, name.c_str());
 			glUniform1iv(location, count, values);
 		}
 
-		void COpenGLShader::UploadUniformFloat(const std::string& name, float value) {
+		void OpenGLShader::UploadUniformFloat(const std::string& name, float value) {
 			GLint location = glGetUniformLocation(m_handle, name.c_str());
 			glUniform1f(location, value);
 		}
 
-		void COpenGLShader::UploadUniformFloat2(const std::string& name, const glm::vec2& value) {
+		void OpenGLShader::UploadUniformFloat2(const std::string& name, const glm::vec2& value) {
 			GLint location = glGetUniformLocation(m_handle, name.c_str());
 			glUniform2f(location, value.x, value.y);
 		}
 
-		void COpenGLShader::UploadUniformFloat3(const std::string& name, const glm::vec3& value) {
+		void OpenGLShader::UploadUniformFloat3(const std::string& name, const glm::vec3& value) {
 			GLint location = glGetUniformLocation(m_handle, name.c_str());
 			glUniform3f(location, value.x, value.y, value.z);
 		}
 
-		void COpenGLShader::UploadUniformFloat4(const std::string& name, const glm::vec4& value) {
+		void OpenGLShader::UploadUniformFloat4(const std::string& name, const glm::vec4& value) {
 			GLint location = glGetUniformLocation(m_handle, name.c_str());
 			glUniform4f(location, value.x, value.y, value.z, value.w);
 		}
 
-		void COpenGLShader::UploadUniformMat3(const std::string& name, const glm::mat3& matrix) {
+		void OpenGLShader::UploadUniformMat3(const std::string& name, const glm::mat3& matrix) {
 			GLint location = glGetUniformLocation(m_handle, name.c_str());
 			glUniformMatrix3fv(location, 1, GL_FALSE, glm::value_ptr(matrix));
 		}
 
-		void COpenGLShader::UploadUniformMat4(const std::string& name, const glm::mat4& matrix)
+		void OpenGLShader::UploadUniformMat4(const std::string& name, const glm::mat4& matrix)
 		{
 			GLint location = glGetUniformLocation(m_handle, name.c_str());
 			glUniformMatrix4fv(location, 1, GL_FALSE, glm::value_ptr(matrix));

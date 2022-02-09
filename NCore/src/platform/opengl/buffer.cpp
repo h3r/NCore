@@ -3,7 +3,7 @@
 #include <glad/glad.h>
 
 namespace NC {
-  OpenGLVertexBuffer::OpenGLVertexBuffer(float* _vertices, size_t _size){
+  OpenGLVertexBuffer::OpenGLVertexBuffer(float* _vertices, uint32_t _size){
     glCreateBuffers(1, &m_render_id);
 		glBindBuffer(GL_ARRAY_BUFFER, m_render_id);
     glBufferData(GL_ARRAY_BUFFER, _size, _vertices, GL_STATIC_DRAW);
@@ -21,7 +21,7 @@ namespace NC {
     glBindBuffer(GL_ARRAY_BUFFER, 0);
   }
 
-  OpenGLVertexBuffer* OpenGLVertexBuffer::Create(float* _vertices, size_t _size) {
+  OpenGLVertexBuffer* OpenGLVertexBuffer::Create(float* _vertices, uint32_t _size) {
 		return new OpenGLVertexBuffer(_vertices, _size);
   }
 
@@ -49,7 +49,7 @@ namespace NC {
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 	}
 
-	OpenGLIndexBuffer* OpenGLIndexBuffer::Create(uint32_t* _indices, size_t _size) {
-		return new OpenGLIndexBuffer(_indices, _size);
+	OpenGLIndexBuffer* OpenGLIndexBuffer::Create(uint32_t* _indices, uint32_t _count) {
+		return new OpenGLIndexBuffer(_indices, _count);
 	}
 }

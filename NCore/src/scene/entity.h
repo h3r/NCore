@@ -1,6 +1,5 @@
 #pragma once
 
-#include "core/log.h"
 #include "core/core.h"
 #include "scene/scene.h"
 #include "scene/components.h"

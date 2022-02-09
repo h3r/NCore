@@ -19,38 +19,38 @@
 
 namespace Input
 {
-  class CInput {
+  class Input {
   public:
-		static CInput& _INSTANCE_();
-		CInputController& Player(std::string _name);
-    CInputController* CreateInputControl(std::string _name);
+		static Input& _INSTANCE_();
+		InputController& Player(std::string _name);
+    InputController* CreateInputControl(std::string _name);
     bool Start() { return true; }
     void Destroy();
     void Update(float _dt);
     void FlushDevices();
-    IDevice* GetDevice(const std::string& _name);
+    Device* GetDevice(const std::string& _name);
 
     static void  RegisterButtonDefinitions();
-    static const TButtonDef* GetButtonDefinition(const std::string& _name);
+    static const ButtonDef* GetButtonDefinition(const std::string& _name);
     static const std::string& GetButtonName(Interface _type, int _button_id);
 
-    const TButton& operator[](const Key _key) const;
-    const TButton& operator[](const MouseButton _bt) const;
-    const TButton& operator[](const GamePadButton _bt) const;
-    const TButton& operator[](const TButtonDef& _def) const;
-    const TButton& operator[](const std::string& _name) const;
+    const Button& operator[](const Key _key) const;
+    const Button& operator[](const MouseButton _bt) const;
+    const Button& operator[](const GamePadButton _bt) const;
+    const Button& operator[](const ButtonDef& _def) const;
+    const Button& operator[](const std::string& _name) const;
 
     //LRESULT OnOSMsg(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 
-    friend class CInputController;
+    friend class InputController;
 
 	private:
 		static VDevices m_all_devices;
-		static std::map<std::string, CInputController*> m_all_controls;
-		static std::map<std::string, TButtonDef> m_button_definitions;
+		static std::map<std::string, InputController*> m_all_controls;
+		static std::map<std::string, ButtonDef> m_button_definitions;
 
-		CInput();
+		Input();
   };
 
 }
-#define EngineInput Input::CInput::_INSTANCE_()
+#define EngineInput Input::Input::_INSTANCE_()

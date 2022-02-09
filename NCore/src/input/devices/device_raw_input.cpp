@@ -7,8 +7,8 @@
 
 // value tables: http://keithditch.powweb.com/Games/html/raw_input.html
 
-CDeviceRawInput::CDeviceRawInput(const std::string& _name)
-  : Input::IDevice(_name)
+DeviceRawInput::DeviceRawInput(const std::string& _name)
+  : Input::Device(_name)
 {
   /*
 	RAWINPUTDEVICE Rid[2];
@@ -36,7 +36,7 @@ CDeviceRawInput::CDeviceRawInput(const std::string& _name)
 	*/
 }
 
-void CDeviceRawInput::Update(Input::TMouseData& _data)
+void DeviceRawInput::Update(Input::MouseData& _data)
 {
 	_data.pos_x = m_mouse_accum_x;
 	_data.pos_y = m_mouse_accum_y;
@@ -48,7 +48,7 @@ void CDeviceRawInput::Update(Input::TMouseData& _data)
 	m_wheel_delta_steps = 0;
 }
 
-void CDeviceRawInput::Update(Input::TKeyboardData& _data)
+void DeviceRawInput::Update(Input::KeyboardData& _data)
 {
   for (int i = 0; i < Input::BT_KEYBOARD_COUNT; ++i)
   {
@@ -57,7 +57,7 @@ void CDeviceRawInput::Update(Input::TKeyboardData& _data)
 }
 
 /*
-int CDeviceRawInput::processWindowMsg(UINT message, WPARAM wParam, LPARAM lParam)
+int DeviceRawInput::processWindowMsg(UINT message, WPARAM wParam, LPARAM lParam)
 {
   switch (message)
   {

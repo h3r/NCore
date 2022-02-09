@@ -4,16 +4,16 @@
 
 namespace Input
 {
-  CMapping::CMapping(CInputController& _controller)
+  Mapping::Mapping(InputController& _controller)
     : m_controller(_controller)
   {
   }
 
-  void CMapping::Update(float _dt)
+  void Mapping::Update(float _dt)
   {
     for (auto& mapped_bt : m_buttons)
     {
-      TMappedButton& map_bt = mapped_bt.second;
+      MappedButton& map_bt = mapped_bt.second;
 
       float value = 0.f;
       bool all = true;
@@ -37,7 +37,7 @@ namespace Input
     }
   }
 
-  const TButton& CMapping::GetMappedButton(const std::string& _name) const
+  const Button& Mapping::GetMappedButton(const std::string& _name) const
   {
     // check in the custom mapped buttons
     auto it = m_buttons.find(_name);
@@ -47,17 +47,17 @@ namespace Input
     }
 
     // check in the system-registered buttons
-    const TButtonDef* bt_def = CInput::GetButtonDefinition(_name);
+    const ButtonDef* bt_def = Input::GetButtonDefinition(_name);
     if (bt_def)
     {
       return m_controller[*bt_def];
     }
 
     // return a dummy
-    return TButton::dummy;
+    return Button::dummy;
   }
 
-  void CMapping::Load(const std::string& _file)
+  void Mapping::Load(const std::string& _file)
   {
     m_buttons.clear();
 
@@ -67,16 +67,16 @@ namespace Input
       if (j_entry.is_array())
         continue;
 
-      TMappedButton mapped_bt;
+      MappedButton mapped_bt;
 
       const std::string name = j_entry["name"];
       mapped_bt.check_all = j_entry["check"] == "all";
       for (auto& j_button : j_entry["buttons"])
       {
-        const TButtonDef* bt_def = CInput::GetButtonDefinition(j_button);
+        const ButtonDef* bt_def = Input::GetButtonDefinition(j_button);
         if (!bt_def) continue;
 
-        const TButton& bt = m_controller[*bt_def];
+        const Button& bt = m_controller[*bt_def];
         mapped_bt.buttons.push_back(&bt);
       }
 

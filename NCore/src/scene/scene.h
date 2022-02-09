@@ -1,11 +1,6 @@
 #pragma once
 // This ignores all warnings raised inside External headers
-#include "core/uuid.h"
-
-#pragma warning(push, 0)
-#include <entt/entt.hpp>
-#pragma warning(pop)
-
+#include "core/core.h"
 
 namespace NC {
 

@@ -1,6 +1,6 @@
 #include "ncpch.h"
 #include "layer.h"
-#include "core/log.h"
+#include "core/core.h"
 #include "events/event.h"
 
 
@@ -17,8 +17,8 @@ public:
     log_info(m_name);
   }
 
-  void OnEvent(NC::TEvent& event) {
-    //log_trace("TEvent: {}", event);
+  void OnEvent(NC::Event& event) {
+    //log_trace("Event: {}", event);
   }
 
 };

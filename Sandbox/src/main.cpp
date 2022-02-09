@@ -2,7 +2,7 @@
 
 using namespace glm;
 
-class Game : public NC::CApplication
+class Game : public NC::Application
 {
 public:
   
@@ -16,7 +16,7 @@ public:
   }
 };
 
-NC::CApplication* NC::CreateApplication() {
+NC::Application* NC::CreateApplication() {
   return new Game();
 }
 

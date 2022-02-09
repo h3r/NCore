@@ -4,7 +4,7 @@
 #include "platform/opengl/buffer.h"
 
 namespace NC {
-  VertexBuffer* VertexBuffer::Create(float* vertices, size_t size) {
+  VertexBuffer* VertexBuffer::Create(float* vertices, uint32_t size) {
 		switch (Renderer::GetAPI())
 		{
 		case RendererAPI::None:		nc_fatal("nullptr"); return nullptr;
@@ -13,11 +13,11 @@ namespace NC {
 		}
   }
   
-  IndexBuffer* IndexBuffer::Create(uint32_t* indices, size_t size) {
+  IndexBuffer* IndexBuffer::Create(uint32_t* indices, uint32_t count) {
 		switch (Renderer::GetAPI())
 		{
 		case RendererAPI::None:		nc_fatal("nullptr"); return nullptr;
-		case RendererAPI::OpenGL: return new OpenGLIndexBuffer(indices, size);
+		case RendererAPI::OpenGL: return new OpenGLIndexBuffer(indices, count);
 		default: nc_fatal("Unknown Renderer API"); return nullptr;
 		}
   }

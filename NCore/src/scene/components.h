@@ -1,5 +1,5 @@
 #pragma once
-#include "core/uuid.h"
+#include "core/core.h"
 
 namespace NC {
 

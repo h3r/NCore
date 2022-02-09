@@ -5,25 +5,25 @@
 
 namespace Input
 {
-  struct TKeyboardData;
-  struct TMouseData;
-  struct TGamepadData;
-  struct TRumbleData;
+  struct KeyboardData;
+  struct MouseData;
+  struct GamepadData;
+  struct RumbleData;
 
-  class IDevice 
+  class Device 
   { 
   public:
-    IDevice(const std::string& _name)
+    Device(const std::string& _name)
       : m_name(_name)
     {}
     const std::string& GetName() const { return m_name; }
 
-    virtual void Update(TKeyboardData& _data) {}
-    virtual void Update(TMouseData& _data) {}
-    virtual void Update(TGamepadData& _data) {}
+    virtual void Update(KeyboardData& _data) {}
+    virtual void Update(MouseData& _data) {}
+    virtual void Update(GamepadData& _data) {}
 		virtual void FlushDevice() = 0;
-    virtual void Feedback(const TRumbleData& _data) {}
-		//virtual bool OnEvent(NC::TEvent& _event) = 0;
+    virtual void Feedback(const RumbleData& _data) {}
+		//virtual bool OnEvent(NC::Event& _event) = 0;
     /*virtual int processWindowMsg(UINT message, WPARAM wParam, LPARAM lParam) {
       return 0;
     }*/
@@ -33,5 +33,5 @@ namespace Input
     std::string m_name;
   };
 
-  using VDevices = std::vector<IDevice*>;
+  using VDevices = std::vector<Device*>;
 }

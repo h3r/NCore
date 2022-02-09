@@ -2,7 +2,7 @@
 #include "core/core.h"
 
 #ifdef NC_PLATFORM_WINDOWS
-extern NC::CApplication* NC::CreateApplication();
+extern NC::Application* NC::CreateApplication();
 //int NC_API main(int argc, char** argv);
 
 int main(int argc, char** argv) {

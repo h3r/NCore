@@ -1,5 +1,4 @@
 #pragma once
-#include "core/log.h"
 #include "core/core.h"
 
 namespace NC {
@@ -18,10 +17,10 @@ namespace NC {
 
 
   typedef uint32_t EventType;
-  struct NC_API TEvent {
+  struct NC_API Event {
     bool m_handled = false;
 
-    virtual ~TEvent() = default;
+    virtual ~Event() = default;
 
     virtual const char* GetName() const = 0;
     virtual int GetCategoryFlags() const = 0;
@@ -36,16 +35,16 @@ namespace NC {
     }
   };
 
-  inline std::ostream& operator<<(std::ostream& _os, const TEvent& _e) {
+  inline std::ostream& operator<<(std::ostream& _os, const Event& _e) {
     return _os << _e.ToString();
   }
 
 
 
 
-  class NC_API CEventDispatcher {
+  class NC_API EventDispatcher {
   public:
-    CEventDispatcher(TEvent& _event)
+    EventDispatcher(Event& _event)
       : m_event(_event) {}
 
     // F will be deduced by the compiler
@@ -59,11 +58,11 @@ namespace NC {
     }
 
   private:
-    TEvent& m_event;
+    Event& m_event;
 
   };
 
-  class CEventManager {
+  class EventManager {
 
     //Hacks para guardarme un puntero a una clase templatizada
     struct IMsgBaseCallback {
@@ -98,10 +97,10 @@ namespace NC {
     inline static std::unordered_map < std::string, std::unordered_multimap<uint32_t, TCallbackSlot> > all_events;
 
   public:
-    CEventManager() {}
+    EventManager() {}
 
     template< typename TMsg, typename TMethod >
-    static void bind(std::string sender, std::string observer, TMethod method)
+    static void Bind(std::string sender, std::string observer, TMethod method)
     {
       auto it = all_events.find(sender);
       if (it == all_events.end())
@@ -115,7 +114,7 @@ namespace NC {
     }
 
     template< typename TMsg >
-    static void unbind(std::string sender, std::string observer)
+    static void Unbind(std::string sender, std::string observer)
     {
       auto it = all_events.find(sender);
       if (it == all_events.end())
@@ -136,7 +135,7 @@ namespace NC {
     }
 
     template< typename TMsg >
-    static void trigger(std::string sender, const void* generic_msg = nullptr) {
+    static void Trigger(std::string sender, const void* generic_msg = nullptr) {
       const auto id = TMsg::GetStaticType();
       #ifndef NDEBUG
       //Special tracking to avoid callback hell issues

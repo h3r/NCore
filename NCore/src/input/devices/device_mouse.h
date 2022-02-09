@@ -3,11 +3,11 @@
 #include "input/device.h"
 #include "input/enums.h"
 
-class CDeviceMouse : public Input::IDevice
+class DeviceMouse : public Input::Device
 {
 public:
-  CDeviceMouse(const std::string& _name);
-  void Update(Input::TMouseData& _data) override;
+  DeviceMouse(const std::string& _name);
+  void Update(Input::MouseData& _data) override;
 	void FlushDevice() override;
   //int processWindowMsg(UINT message, WPARAM wParam, LPARAM lParam) override;
 

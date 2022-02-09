@@ -1,5 +1,5 @@
 #include "ncpch.h"
-#include "core/log.h"
+#include "core/core.h"
 #include "layers/layer.h"
 #include "events/event.h"
 #include "events/imgui.h"
@@ -16,17 +16,20 @@
 
 using namespace NC;
 
-class CImguiLayer : public Layer
+class ImguiLayer : public Layer
 {
   float m_time = .0f;
 
 public:
-  CImguiLayer() : Layer("ImguiLayer") {}
-  ~CImguiLayer() {}
+  ImguiLayer() : Layer("ImguiLayer") {
+		//EventManager::Bind("renderer", "imgui_begin", [this]() -> bool { Begin(); return true; });
+		//EventManager::Bind("renderer", "imgui_end",   [this]() -> bool { End();   return true; });
+	}
+  ~ImguiLayer() {}
 
-  void OnEvent(NC::TEvent& _event) 
+  void OnEvent(NC::Event& _event) 
   {
-    CEventDispatcher dispatcher(_event);
+    EventDispatcher dispatcher(_event);
     dispatcher.Dispatch<ImGuiBegin>([this](ImGuiBegin& _e) {
       Begin(); 
       return true; 
@@ -88,7 +91,7 @@ public:
     //IM_ASSERT(font != NULL);
 
     // Setup Platform/Renderer backends
-    CApplication& app = CApplication::Get();
+    Application& app = Application::Get();
     GLFWwindow* window = static_cast<GLFWwindow*>(app.GetWindow().GetNativeWindow());
     ImGui_ImplGlfw_InitForOpenGL(window, true);
     ImGui_ImplOpenGL3_Init("#version 410");
@@ -135,4 +138,4 @@ public:
 };
 
 
-REGISTER_LAYER("ImguiLayer", CImguiLayer)
+REGISTER_LAYER("ImguiLayer", ImguiLayer)

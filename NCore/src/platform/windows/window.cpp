@@ -1,7 +1,6 @@
 #include "ncpch.h"
 #include "window.h"
 
-#include "core/log.h"
 #include "core/core.h"
 #include "events/application.h"
 #include "events/keyboard.h"

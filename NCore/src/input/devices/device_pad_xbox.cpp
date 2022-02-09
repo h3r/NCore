@@ -96,7 +96,7 @@ namespace
 }
 
 
-void CDevicePadXbox::Update(Input::TGamepadData& _data)
+void CDevicePadXbox::Update(Input::GamepadData& _data)
 {
   
 	XINPUT_STATE state;
@@ -133,7 +133,7 @@ void CDevicePadXbox::Update(Input::TGamepadData& _data)
 	
 }
 
-void CDevicePadXbox::Feedback(const Input::TRumbleData& _data)
+void CDevicePadXbox::Feedback(const Input::RumbleData& _data)
 {
   XINPUT_VIBRATION vibration;
   vibration.wLeftMotorSpeed = static_cast<WORD>(data.leftVibration * std::numeric_limits<WORD>::max());
