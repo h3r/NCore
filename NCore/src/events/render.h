@@ -1,6 +1,7 @@
 #pragma once
-
 #include "event.h"
+#include "render/shader.h"
+#include "render/vertex_array.h"
 
 namespace NC {
 	namespace Renderer {

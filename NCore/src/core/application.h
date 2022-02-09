@@ -28,8 +28,6 @@ namespace NC {
     Scope<CWindow> m_window;
     bool m_should_stop = false;
     bool m_minimized = false;
-		Ref<Shader> m_shader;
-		Ref<VertexArray>  m_vertex_array;
 
     bool OnWindowClose(WindowCloseEvent& _event);
     bool OnWindowResize(WindowResizeEvent& _event);

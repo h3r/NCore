@@ -3,7 +3,7 @@
 namespace NC
 {
 
-	class VertexArray
+	class NC_API VertexArray
 	{
 	public: ~VertexArray() {}
 				virtual void Bind() const = 0;
