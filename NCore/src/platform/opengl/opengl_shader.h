@@ -46,7 +46,7 @@ namespace NC {
 		void CompileOrGetVulkanBinaries(const std::unordered_map<uint32_t, std::string>& _shader_sources);
 
 	private:
-		uint32_t m_handle;
+		uint32_t m_render_id;
 		std::string m_name;
 		std::string m_filepath;
 
