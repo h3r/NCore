@@ -32,6 +32,8 @@ project "NCore"
 	{
     "src/**.h",
 		"src/**.cpp",
+		"vendor/stb_image/**.h",
+		"vendor/stb_image/**.cpp",
 	}
 
 	defines
@@ -50,7 +52,7 @@ project "NCore"
 		"%{IncludeDir.glad}",
 		"%{IncludeDir.imgui}",
 		"%{IncludeDir.glm}",
-		--"%{IncludeDir.stb_image}",
+		"%{IncludeDir.stb_image}",
 		"%{IncludeDir.entt}",
 		--"%{IncludeDir.yaml_cpp}",
 		--"%{IncludeDir.imguizmo}",
