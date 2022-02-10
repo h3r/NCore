@@ -5,7 +5,7 @@
 /*
   Base class for all layers.
 */
-class Layer {
+class NC_API Layer {
   public:
     Layer() {}
     Layer(std::string _name)
@@ -29,12 +29,11 @@ class Layer {
 /*
   A layerstack is a container for other layers for the engine.
 */
-class CLayerStack {
+class NC_API CLayerStack {
   
   public:
     static CLayerStack& _INSTANCE_(){
-        static CLayerStack instance;
-        return instance;
+        return s_instance;
     }
 
     void PushLayer(Layer* _layer) { 
@@ -73,6 +72,7 @@ class CLayerStack {
     std::vector <std::string> GetSortingOrder();
 
   private:
+		static CLayerStack s_instance;
     std::vector<Layer*> m_layers;
     unsigned int m_inserter = 0;
 
@@ -105,8 +105,8 @@ public:
   CLayerRegistry() {}
 
   static CLayerRegistry& _INSTANCE_() {
-    static CLayerRegistry instance;
-    return instance;
+		static CLayerRegistry* instance = new CLayerRegistry();
+    return *instance;
   }
 
   void Add(std::string _name, CLayerFactory _factory){
@@ -119,8 +119,8 @@ public:
     return m_registered[_name]();
   }
 
-private:
   std::map<std::string, CLayerFactory> m_registered;
+private:
 };
 
 #define LayerRegistry CLayerRegistry::_INSTANCE_()
