@@ -5,6 +5,9 @@
 #include "render/shader.h"
 #include "render/vertex_array.h"
 #include "core/application.h"
+#include "math/camera.h"
+#include "utils/time.h"
+#include "imgui.h"
 
 using namespace NC;
 
@@ -12,10 +15,12 @@ class EditorLayer : public Layer
 {
 	Ref<Shader> m_shader;
 	Ref<VertexArray>  m_vertex_array;
+	OrthoGraphicCamera m_camera;
 
 public:
 	EditorLayer() 
-		: Layer("EditorLayer") 
+		: Layer("EditorLayer")
+		, m_camera(-1.f,1.f,-1.f,1.f)
 	{
     log_info("Constructor");
 
@@ -53,18 +58,20 @@ public:
 
 		{ //Create a shader
 			std::string vs_code = R"(#version 450
+
 				layout( location = 0 ) in  vec3 a_vertex;
 				layout( location = 1 ) out vec3 v_vertex;
 
 				void main() {
 					v_vertex = a_vertex;
-					gl_Position = vec4(a_vertex,1.0);
+					gl_Position = vec4(a_vertex * .5 + .5,1.0);
 				}
 			)";
 
 			std::string fs_code = R"(#version 450
-				layout( location = 0 ) out vec4 color;
+
 				layout( location = 1 ) in vec3 v_vertex;
+				layout( location = 0 ) out vec4 color;
 
 				void main() {
 					color = vec4(v_vertex * .5 + .5, 1.0);
@@ -83,6 +90,10 @@ public:
 
   void OnUpdate() {
     //log_info("Hey! I'm actually being called!");
+		
+		m_shader->SetFloat("u_time", TElapsedTime::Get().current);
+		//m_shader->SetMat4("u_view_proj", m_camera.GetViewProjMatrix());
+
 		{ //Render our Scene
 			Application::Get().OnEvent(Renderer::Begin());
 			Application::Get().OnEvent(Renderer::Submit(m_shader, m_vertex_array));
@@ -95,8 +106,8 @@ public:
   }
 
   void OnInspect() {
-		//log_trace("Event: {}");
-    //ImGui::Text(GetName().c_str());
+		static bool show = true;
+		//ImGui::ShowDemoWindow(&show);
   }
 };
 REGISTER_LAYER("EditorLayer", EditorLayer);

@@ -3,7 +3,7 @@
 
 // ----------------------------------------------------------
 // To compute time elapsed between ctor and elapsed()
-class CTimer {
+class NC_API CTimer {
 	uint64_t time_stamp;
 public:
 	CTimer() {
@@ -72,7 +72,7 @@ public:
 
 // ----------------------------------------------------------
 // Holds a global with the elapsed/unscaled and current time
-struct TElapsedTime {
+struct NC_API TElapsedTime {
 	float  delta = 0.f;
 	double current = 0.;
 	float  scale_factor = 1.0f;
@@ -84,7 +84,8 @@ struct TElapsedTime {
 		delta = delta_unscaled * scale_factor;
 		current += delta;
 	}
+	static TElapsedTime& Get() {
+		static TElapsedTime _time;
+		return _time;
+	}
 };
-
-extern TElapsedTime Time;
-

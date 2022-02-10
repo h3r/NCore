@@ -13,8 +13,6 @@
 
 #include "render/render_command.h"
 
-TElapsedTime Time;
-
 #define toString(src) #src
 namespace NC {
 
@@ -29,15 +27,11 @@ namespace NC {
     m_window = std::unique_ptr<CWindow>(CWindow::Create());
     m_window->SetEventCallback(BIND(OnEvent));
 
-    auto* imgui_layer = LayerRegistry.Produce("ImguiLayer");
-		nc_assert(imgui_layer, "");
-    PushOverlay(imgui_layer);
-
 		auto* controller_layer = LayerRegistry.Produce("ControllerLayer");
-		nc_assert(controller_layer, "");
 		PushLayer(controller_layer);
 
-
+		auto* imgui_layer = LayerRegistry.Produce("ImguiLayer");
+		PushOverlay(imgui_layer);
   }
 
   Application::~Application() {
@@ -50,7 +44,7 @@ namespace NC {
 		{
 			static CTimer  time_since_last_render;
 			float elapsed = time_since_last_render.ElapsedAndReset();
-			Time.Set(Time.current_unscaled + elapsed);
+			TElapsedTime::Get().Set(TElapsedTime::Get().current_unscaled + elapsed);
 
 			{	//Update Layers
 				for (auto* layer : LayerStack) {
