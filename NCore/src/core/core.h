@@ -6,12 +6,16 @@
 
 
 #ifdef NC_PLATFORM_WINDOWS
+#ifdef NC_DYNAMIC_LINK
   #include <Windows.h>
   #ifdef NC_BUILD_DLL
     #define NC_API __declspec(dllexport)
   #else
     #define NC_API __declspec(dllimport)
   #endif
+#else
+#define NC_API
+#endif
 #else
   #error ONLY supported in windows
 #endif

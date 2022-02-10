@@ -17,7 +17,7 @@ group "Dependencies"
 group ""
 
 project "NCore"
-	kind          "SharedLib"
+	kind          "StaticLib"
 	language      "C++"
 	cppdialect    "C++17"
 	staticruntime "off"
@@ -41,7 +41,7 @@ project "NCore"
 		"_CRT_SECURE_NO_WARNINGS",
 		"GLFW_INCLUDE_NONE",
 		"NOMINMAX",
-		"NC_DYNAMIC_LINK"
+		--"NC_DYNAMIC_LINK"
 	}
 
 	includedirs
